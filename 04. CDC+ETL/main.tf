@@ -40,12 +40,7 @@ module "s3" {
   versioning_enabled = true 
 }
 
-module "firehose" {
-  source              = "./modules/firehose"
-  name_prefix         = "my-firehose"
-  s3_bucket_arn       = module.s3.bucket_arn  
-  kinesis_stream_arn = module.kinesis.stream_arn 
-}
+
 
 output "stream_arn" {
  value = module.kinesis.stream_arn
