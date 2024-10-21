@@ -37,7 +37,7 @@ resource "aws_db_instance" "default" {
   backup_retention_period = 7
   skip_final_snapshot  = true
   identifier           = "${var.name_prefix}-mysql-instance"
-
+  publicly_accessible = true
 }
 
 

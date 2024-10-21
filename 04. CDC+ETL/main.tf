@@ -29,23 +29,22 @@ module "dms_endpoints" {
 dms_kinesis_access_role_arn = module.iam.dms_full_access_role_arn
 }
 
-module "dms_replication_instance" {
-  source = "./modules/dms_replication_instance"
-  name_prefix                 = "my-dms"
-  replication_instance_class  = "dms.t3.micro" # Choose appropriate instance size
-  allocated_storage           = 20
-  replication_subnet_group_id = module.dms_subnet_group.id # Use subnet group from new module
-  vpc_security_group_ids      = [module.dms_security_group.id] # Use security group from new module
+module "s3" {
+  source = "./modules/s3"
+  bucket_name = "my-cdc-s3-bucket"
+  force_destroy = true  # Set to true if you want to delete objects during bucket destruction
+  tags = {
+    Environment = "production"
+    CreatedBy   = "Terraform"
+  }
+  versioning_enabled = true 
 }
 
-module "dms_subnet_group" {
-  source = "./modules/dms_subnet_group"
-  name_prefix = "my-dms"
-}
-
-module "dms_security_group" {
-  source = "./modules/dms_security_group"
-  name_prefix = "my-dms"
+module "firehose" {
+  source              = "./modules/firehose"
+  name_prefix         = "my-firehose"
+  s3_bucket_arn       = module.s3.bucket_arn  
+  kinesis_stream_arn = module.kinesis.stream_arn 
 }
 
 output "stream_arn" {
