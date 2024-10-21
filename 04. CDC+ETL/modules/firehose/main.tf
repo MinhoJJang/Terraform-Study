@@ -68,8 +68,8 @@ resource "aws_kinesis_firehose_delivery_stream" "default" {
     role_arn   = aws_iam_role.firehose_role.arn
     bucket_arn = var.s3_bucket_arn
 
- compression_format = "UNCOMPRESSED" # Other options: GZIP, ZIP, Snappy, HADOOP_SNAPPY
- prefix            = "my-prefix/"  # Example prefix
+ compression_format = "UNCOMPRESSED" 
+ prefix            = "my-prefix/"  
  error_output_prefix = "error-prefix/"
 
   }
