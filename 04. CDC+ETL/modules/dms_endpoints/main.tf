@@ -6,7 +6,6 @@ resource "aws_dms_endpoint" "source" {
   port                        = var.rds_port
   username                    = var.rds_username
   password                    = var.rds_password
-  database_name               = var.rds_database_name
   ssl_mode                    = "none" 
 }
 
