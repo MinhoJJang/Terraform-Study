@@ -33,11 +33,6 @@ resource "aws_iam_policy" "dms_full_access_policy" {
         Effect = "Allow",
         Action = "s3:*",
         Resource = "*"
-      },
-      {
-        Effect = "Allow",
-        Action = [ "dms:*"],
-        Resource = "*"  
       }
     ]
   })

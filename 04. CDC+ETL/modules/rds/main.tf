@@ -1,4 +1,3 @@
-
 # 기본 VPC 가져오기
 data "aws_vpc" "default" {
   default = true

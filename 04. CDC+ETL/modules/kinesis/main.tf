@@ -1,5 +1,3 @@
-
-
 resource "aws_kinesis_stream" "default" {
   name = "${var.name_prefix}-kinesis-stream"
 

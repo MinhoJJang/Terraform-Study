@@ -1,6 +1,3 @@
-
-
-
 resource "aws_dms_endpoint" "source" {
   endpoint_id                 = "${var.name_prefix}-rds-source-endpoint"
   endpoint_type               = "source"
@@ -10,7 +7,7 @@ resource "aws_dms_endpoint" "source" {
   username                    = var.rds_username
   password                    = var.rds_password
   database_name               = var.rds_database_name
-  ssl_mode                    = "none" # Adjust if RDS uses SSL
+  ssl_mode                    = "none" 
 }
 
 resource "aws_dms_endpoint" "target" {

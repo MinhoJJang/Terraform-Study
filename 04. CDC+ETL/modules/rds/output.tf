@@ -1,7 +1,7 @@
 # modules/rds/outputs.tf
 output "rds_endpoint" {
-  value = aws_db_instance.default.endpoint
-  description = "The endpoint of the RDS instance"
+  value = split(":", aws_db_instance.default.endpoint)[0]
+  description = "The endpoint of the RDS instance (without port)"
 }
 
 output "rds_port" {
