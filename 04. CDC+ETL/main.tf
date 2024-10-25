@@ -37,23 +37,17 @@ module "dms_endpoints" {
   dms_kinesis_access_role_arn = module.iam.dms_full_access_role_arn
 }
 
-# module "s3" {
-#   source        = "./modules/s3"
-#   bucket_name   = "my-cdc-s3-bucket"
-#   force_destroy = true # Set to true if you want to delete objects during bucket destruction
-#   tags = {
-#     Environment = "production"
-#     CreatedBy   = "Terraform"
-#   }
-#   versioning_enabled = true
-# }
+module "s3" {
+  source      = "./modules/s3"
+  name_prefix = var.name_prefix
+}
 
-# module "firehose" {
-#   source             = "./modules/firehose"
-#   name_prefix        = "my-firehose"
-#   s3_bucket_arn      = module.s3.bucket_arn      # Get the ARN from the S3 module
-#   kinesis_stream_arn = module.kinesis.stream_arn # Get the ARN from the Kinesis module
-# }
+module "firehose" {
+  source             = "./modules/firehose"
+  name_prefix        = var.name_prefix
+  s3_bucket_arn      = module.s3.bucket_arn
+  kinesis_stream_arn = module.kinesis.stream_arn
+}
 
 # output "stream_arn" {
 #   value = module.kinesis.stream_arn

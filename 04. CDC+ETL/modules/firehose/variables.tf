@@ -12,3 +12,4 @@ variable "kinesis_stream_arn" {
   type        = string
   description = "The ARN of the Kinesis stream as the data source."
 }
+

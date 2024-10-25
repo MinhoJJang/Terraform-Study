@@ -7,6 +7,12 @@ resource "aws_db_parameter_group" "default" {
     value        = "ROW"
     apply_method = "immediate"
   }
+
+  parameter {
+    apply_method = "immediate"
+    name         = "binlog_checksum"
+    value        = "NONE"
+  }
 }
 
 resource "aws_security_group" "rds_sg" {
