@@ -5,19 +5,19 @@ module "network" {
   private_subnets = var.private_subnets
 }
 
-# module "rds" {
-#   source            = "./modules/rds"
-#   name_prefix       = var.name_prefix
-#   username          = var.rds_username
-#   password          = var.rds_password
-#   vpc_id            = module.network.vpc_id
-#   public_subnet_ids = module.network.public_subnet_ids # Remove the square brackets here
-# }
+module "rds" {
+  source            = "./modules/rds"
+  name_prefix       = var.name_prefix
+  username          = var.rds_username
+  password          = var.rds_password
+  vpc_id            = module.network.vpc_id
+  public_subnet_ids = module.network.public_subnet_ids
+}
 
-# module "kinesis" {
-#   source      = "./modules/kinesis"
-#   name_prefix = "my-kinesis"
-# }
+module "kinesis" {
+  source      = "./modules/kinesis"
+  name_prefix = var.name_prefix
+}
 
 # module "iam" {
 #   source             = "./modules/iam"
