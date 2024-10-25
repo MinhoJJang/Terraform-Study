@@ -19,7 +19,7 @@ resource "aws_iam_policy" "firehose_policy" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
- {
+      {
         Effect = "Allow",
         Action = [
           "s3:AbortMultipartUpload",
@@ -28,28 +28,28 @@ resource "aws_iam_policy" "firehose_policy" {
           "s3:ListBucket",
           "s3:ListBucketMultipartUploads",
           "s3:PutObject",
-          "s3:PutObjectAcl" 
+          "s3:PutObjectAcl"
         ],
         Resource = [
           var.s3_bucket_arn,
           "${var.s3_bucket_arn}/*"
         ]
-      },      
+      },
       {
-        Effect = "Allow",
-        Action = "kinesis:DescribeStream",
+        Effect   = "Allow",
+        Action   = "kinesis:DescribeStream",
         Resource = var.kinesis_stream_arn
       },
       {
         Effect = "Allow",
         Action = [
- "logs:CreateLogGroup",
+          "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents",
           "logs:DescribeLogGroups",
           "logs:DescribeLogStreams"
- ],
- Resource = "*"
+        ],
+        Resource = "*"
       }
     ]
   })
@@ -68,9 +68,9 @@ resource "aws_kinesis_firehose_delivery_stream" "default" {
     role_arn   = aws_iam_role.firehose_role.arn
     bucket_arn = var.s3_bucket_arn
 
- compression_format = "UNCOMPRESSED" # Other options: GZIP, ZIP, Snappy, HADOOP_SNAPPY
- prefix            = "my-prefix/"  # Example prefix
- error_output_prefix = "error-prefix/"
+    compression_format  = "UNCOMPRESSED"
+    prefix              = "my-prefix/"
+    error_output_prefix = "error-prefix/"
 
   }
 

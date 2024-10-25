@@ -4,6 +4,6 @@ output "stream_arn" {
 }
 
 output "stream_name" {
-  value = aws_kinesis_stream.default.name
+  value       = aws_kinesis_stream.default.name
   description = "The name of the Kinesis stream"
 }

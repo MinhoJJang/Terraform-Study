@@ -1,11 +1,11 @@
 # modules/rds/outputs.tf
 output "rds_endpoint" {
-  value = split(":", aws_db_instance.default.endpoint)[0]
+  value       = split(":", aws_db_instance.default.endpoint)[0]
   description = "The endpoint of the RDS instance (without port)"
 }
 
 output "rds_port" {
-  value = aws_db_instance.default.port
+  value       = aws_db_instance.default.port
   description = "The port of the RDS instance"
 }
 
@@ -15,13 +15,13 @@ output "rds_instance_arn" {
 }
 
 output "username" {
-  value = aws_db_instance.default.username
+  value       = aws_db_instance.default.username
   description = "The username of the RDS instance"
-  sensitive = true
+  sensitive   = true
 }
 
 output "password" {
-  value = var.password
+  value       = var.password
   description = "The password of the RDS instance"
-  sensitive = true
+  sensitive   = true
 }

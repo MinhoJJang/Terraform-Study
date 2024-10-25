@@ -1,57 +1,62 @@
-module "rds" {
-  source      = "./modules/rds"
-  name_prefix = "my-rds"
-  username    = "admin"
-  password    = "Password123!"
+module "network" {
+  source      = "./modules/network"
+  name_prefix = var.name_prefix
 }
 
-module "kinesis" {
-  source      = "./modules/kinesis"
-  name_prefix = "my-kinesis"
-}
+# module "rds" {
+#   source      = "./modules/rds"
+#   name_prefix = "my-rds"
+#   username    = "admin"
+#   password    = "Password123!"
+# }
 
-module "iam" {
-  source             = "./modules/iam"
-  name_prefix        = "my-dms"
-  kinesis_stream_arn = module.kinesis.stream_arn
-}
+# module "kinesis" {
+#   source      = "./modules/kinesis"
+#   name_prefix = "my-kinesis"
+# }
 
-module "dms_endpoints" {
-  source = "./modules/dms_endpoints"
+# module "iam" {
+#   source             = "./modules/iam"
+#   name_prefix        = "my-dms"
+#   kinesis_stream_arn = module.kinesis.stream_arn
+# }
 
-  name_prefix                 = "my-dms"
-  rds_endpoint                = module.rds.rds_endpoint
-  rds_port                    = module.rds.rds_port
-  rds_username                = module.rds.username
-  rds_password                = module.rds.password
-  rds_database_name           = "mydb"
-  kinesis_stream_arn          = module.kinesis.stream_arn
-  dms_kinesis_access_role_arn = module.iam.dms_full_access_role_arn
-}
+# module "dms_endpoints" {
+#   source = "./modules/dms_endpoints"
 
-module "s3" {
-  source        = "./modules/s3"
-  bucket_name   = "my-cdc-s3-bucket"
-  force_destroy = true # Set to true if you want to delete objects during bucket destruction
-  tags = {
-    Environment = "production"
-    CreatedBy   = "Terraform"
-  }
-  versioning_enabled = true
-}
+#   name_prefix                 = "my-dms"
+#   rds_endpoint                = module.rds.rds_endpoint
+#   rds_port                    = module.rds.rds_port
+#   rds_username                = module.rds.username
+#   rds_password                = module.rds.password
+#   rds_database_name           = "mydb"
+#   kinesis_stream_arn          = module.kinesis.stream_arn
+#   dms_kinesis_access_role_arn = module.iam.dms_full_access_role_arn
+# }
 
-module "firehose" {
-  source             = "./modules/firehose"
-  name_prefix        = "my-firehose"
-  s3_bucket_arn      = module.s3.bucket_arn      # Get the ARN from the S3 module
-  kinesis_stream_arn = module.kinesis.stream_arn # Get the ARN from the Kinesis module
-}
+# module "s3" {
+#   source        = "./modules/s3"
+#   bucket_name   = "my-cdc-s3-bucket"
+#   force_destroy = true # Set to true if you want to delete objects during bucket destruction
+#   tags = {
+#     Environment = "production"
+#     CreatedBy   = "Terraform"
+#   }
+#   versioning_enabled = true
+# }
 
-output "stream_arn" {
-  value = module.kinesis.stream_arn
-}
+# module "firehose" {
+#   source             = "./modules/firehose"
+#   name_prefix        = "my-firehose"
+#   s3_bucket_arn      = module.s3.bucket_arn      # Get the ARN from the S3 module
+#   kinesis_stream_arn = module.kinesis.stream_arn # Get the ARN from the Kinesis module
+# }
 
-output "rds_endpoint" {
-  value = module.rds.rds_endpoint
-}
+# output "stream_arn" {
+#   value = module.kinesis.stream_arn
+# }
+
+# output "rds_endpoint" {
+#   value = module.rds.rds_endpoint
+# }
 

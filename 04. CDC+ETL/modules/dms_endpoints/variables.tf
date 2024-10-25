@@ -1,46 +1,46 @@
 variable "name_prefix" {
-  type = string
+  type        = string
   description = "Prefix for the DMS endpoint identifiers"
 }
 
 variable "rds_endpoint" {
-  type = string
+  type        = string
   description = "The endpoint of the RDS instance"
 }
 
 variable "rds_port" {
-  type = number
+  type        = number
   description = "The port of the RDS instance"
 }
 
 variable "rds_username" {
-  type = string
+  type        = string
   description = "The username for the RDS instance"
 }
 
 variable "rds_password" {
-  type    = string
-  sensitive = true
+  type        = string
+  sensitive   = true
   description = "The password for the RDS instance"
 }
 
 variable "rds_database_name" {
-  type = string
+  type        = string
   description = "The database name of the RDS instance"
 }
 
 variable "kinesis_stream_arn" {
-  type = string
+  type        = string
   description = "The ARN of the Kinesis stream"
 }
 
 variable "region" {
-  type = string
+  type        = string
   description = "AWS region"
-  default = "ap-northeast-2"
+  default     = "ap-northeast-2"
 }
 
 variable "dms_kinesis_access_role_arn" {
-  type = string
+  type        = string
   description = "The ARN of the IAM role with Kinesis access for DMS"
 }

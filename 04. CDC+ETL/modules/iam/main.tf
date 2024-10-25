@@ -20,18 +20,18 @@ resource "aws_iam_policy" "dms_full_access_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect = "Allow",
-        Action = "rds:*",
+        Effect   = "Allow",
+        Action   = "rds:*",
         Resource = "*"
       },
       {
-        Effect = "Allow",
-        Action = "kinesis:*",
+        Effect   = "Allow",
+        Action   = "kinesis:*",
         Resource = "*"
       },
       {
-        Effect = "Allow",
-        Action = "s3:*",
+        Effect   = "Allow",
+        Action   = "s3:*",
         Resource = "*"
       }
     ]
