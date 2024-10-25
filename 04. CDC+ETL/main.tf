@@ -19,24 +19,23 @@ module "kinesis" {
   name_prefix = var.name_prefix
 }
 
-# module "iam" {
-#   source             = "./modules/iam"
-#   name_prefix        = "my-dms"
-#   kinesis_stream_arn = module.kinesis.stream_arn
-# }
+module "iam" {
+  source             = "./modules/iam"
+  name_prefix        = var.name_prefix
+  kinesis_stream_arn = module.kinesis.stream_arn
+}
 
-# module "dms_endpoints" {
-#   source = "./modules/dms_endpoints"
+module "dms_endpoints" {
+  source = "./modules/dms_endpoints"
 
-#   name_prefix                 = "my-dms"
-#   rds_endpoint                = module.rds.rds_endpoint
-#   rds_port                    = module.rds.rds_port
-#   rds_username                = module.rds.username
-#   rds_password                = module.rds.password
-#   rds_database_name           = "mydb"
-#   kinesis_stream_arn          = module.kinesis.stream_arn
-#   dms_kinesis_access_role_arn = module.iam.dms_full_access_role_arn
-# }
+  name_prefix                 = var.name_prefix
+  rds_endpoint                = module.rds.rds_endpoint
+  rds_port                    = module.rds.rds_port
+  rds_username                = module.rds.username
+  rds_password                = module.rds.password
+  kinesis_stream_arn          = module.kinesis.stream_arn
+  dms_kinesis_access_role_arn = module.iam.dms_full_access_role_arn
+}
 
 # module "s3" {
 #   source        = "./modules/s3"

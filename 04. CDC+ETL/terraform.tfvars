@@ -1,6 +1,8 @@
 name_prefix  = "minho"
 rds_username = "root"
 rds_password = "cloudclub6"
+profile      = "tf-minhojang"
+region       = "ap-northeast-2"
 
 vpc_cidr = "192.168.0.0/16"
 public_subnets = {

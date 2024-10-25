@@ -30,3 +30,11 @@ variable "private_subnets" {
     availability_zone = string
   }))
 }
+
+variable "region" {
+  default = "ap-northeast-2"
+}
+
+variable "profile" {
+  default = "default"
+}
