@@ -1,13 +1,17 @@
 module "network" {
-  source      = "./modules/network"
-  name_prefix = var.name_prefix
+  source          = "./modules/network"
+  name_prefix     = var.name_prefix
+  public_subnets  = var.public_subnets
+  private_subnets = var.private_subnets
 }
 
 # module "rds" {
-#   source      = "./modules/rds"
-#   name_prefix = "my-rds"
-#   username    = "admin"
-#   password    = "Password123!"
+#   source            = "./modules/rds"
+#   name_prefix       = var.name_prefix
+#   username          = var.rds_username
+#   password          = var.rds_password
+#   vpc_id            = module.network.vpc_id
+#   public_subnet_ids = module.network.public_subnet_ids # Remove the square brackets here
 # }
 
 # module "kinesis" {
