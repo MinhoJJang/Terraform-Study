@@ -35,6 +35,14 @@ module "s3" {
   name_prefix = var.name_prefix
 }
 
+module "firehose" {
+  source             = "./modules/firehose"
+  name_prefix        = var.name_prefix
+  s3_bucket_arn      = module.s3.bucket_arn
+  kinesis_stream_arn = module.kinesis.stream_arn
+  firehose_role_arn  = module.iam.firehose_role_arn
+}
+
 module "dms_subnet_group" {
   source      = "./modules/dms_subnet_group"
   name_prefix = var.name_prefix
@@ -54,14 +62,6 @@ module "dms_endpoints" {
   dms_role_arn       = module.iam.dms_role_arn
 }
 
-module "firehose" {
-  source             = "./modules/firehose"
-  name_prefix        = var.name_prefix
-  s3_bucket_arn      = module.s3.bucket_arn
-  kinesis_stream_arn = module.kinesis.stream_arn
-  firehose_role_arn  = module.iam.firehose_role_arn
-}
-
 module "dms_instance" {
 
   source                      = "./modules/dms_instance"
@@ -72,40 +72,32 @@ module "dms_instance" {
 
 module "dms_task" {
   source                   = "./modules/dms_task"
-  name_prefix              = "my-dms-task"
+  name_prefix              = var.name_prefix
   replication_instance_arn = module.dms_instance.replication_instance_arn
   source_endpoint_arn      = module.dms_endpoints.dms_source_endpoint_arn
   target_endpoint_arn      = module.dms_endpoints.dms_target_endpoint_arn
-  table_mappings           = <<EOF
- {
- "rules": [
- {
- "rule-type": "selection",
- "rule-id": "1",
- "rule-name": "1",
- "object-locator": {
- "schema-name": "%", 
- "table-name": "%" 
- },
- "rule-action": "include"
- }
+  table_mappings = jsonencode({
+    rules = [
+      {
+        rule-type = "selection"
+        rule-id   = "1"
+        rule-name = "1"
+        object-locator = {
+          schema-name = "%"
+          table-name  = "%"
+        }
+        rule-action = "include"
+      }
+    ]
+  })
 
-
-  ]
- }
- EOF
-
-  replication_task_settings = <<EOF
-{
- "TargetMetadata": {
- "SupportLobs": true,
- "FullLobMode": true,
- "LobChunkSize": 64,
- "LimitedSizeLobMode": true,
- "LobMaxSize": 32
- }
-}
- EOF
-
-
+  replication_task_settings = jsonencode({
+    TargetMetadata = {
+      SupportLobs        = true
+      FullLobMode        = true
+      LobChunkSize       = 64
+      LimitedSizeLobMode = true
+      LobMaxSize         = 32
+    }
+  })
 }
