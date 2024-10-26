@@ -13,3 +13,7 @@ variable "kinesis_stream_arn" {
   description = "The ARN of the Kinesis stream as the data source."
 }
 
+variable "firehose_role_arn" {
+  type        = string
+  description = "firehose role arn"
+}

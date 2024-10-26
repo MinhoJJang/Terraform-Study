@@ -29,7 +29,7 @@ variable "kinesis_stream_arn" {
   description = "The ARN of the Kinesis stream"
 }
 
-variable "dms_kinesis_access_role_arn" {
+variable "dms_role_arn" {
   type        = string
   description = "The ARN of the IAM role with Kinesis access for DMS"
 }

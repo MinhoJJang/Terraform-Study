@@ -15,7 +15,7 @@ resource "aws_dms_endpoint" "target" {
   engine_name   = "kinesis"
   kinesis_settings {
     stream_arn              = var.kinesis_stream_arn
-    service_access_role_arn = var.dms_kinesis_access_role_arn
+    service_access_role_arn = var.dms_role_arn
     message_format          = "json"
   }
 }

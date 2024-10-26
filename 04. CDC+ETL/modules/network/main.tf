@@ -58,6 +58,11 @@ resource "aws_subnet" "private" {
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.gw.id
+  }
   tags = {
     Name = "${var.name_prefix}-private-route-table"
   }
@@ -98,3 +103,27 @@ resource "aws_network_acl" "main" {
 }
 
 
+resource "aws_eip" "nat_eip" {
+  domain = "vpc"
+  tags = {
+    Name = "${var.name_prefix}-nat-eip"
+  }
+}
+
+resource "aws_nat_gateway" "gw" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = values(aws_subnet.public)[0].id
+
+
+  tags = {
+    Name = "${var.name_prefix}-nat-gateway"
+  }
+  depends_on = [aws_internet_gateway.gw]
+
+  timeouts {
+    create = "10m"
+    delete = "30m"
+
+
+  }
+}
