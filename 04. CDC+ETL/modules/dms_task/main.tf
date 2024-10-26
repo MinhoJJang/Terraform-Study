@@ -11,5 +11,4 @@ resource "aws_dms_replication_task" "default" {
   tags = {
     Name = var.name_prefix
   }
-
 }

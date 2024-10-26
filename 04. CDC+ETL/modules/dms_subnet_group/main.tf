@@ -18,7 +18,6 @@ resource "aws_iam_role_policy_attachment" "dms_vpc_role_policy" {
 }
 
 resource "aws_dms_replication_subnet_group" "dms_subnet_group" {
-
   replication_subnet_group_id          = "${var.name_prefix}-dms-subnet-group"
   replication_subnet_group_description = "DMS subnet group"
   subnet_ids                           = var.subnet_ids

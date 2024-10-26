@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 resource "aws_iam_role" "dms_role" {
   name = "${var.name_prefix}-dms-role"
 
@@ -16,12 +14,10 @@ resource "aws_iam_role" "dms_role" {
   })
 }
 
-
 resource "aws_iam_role_policy_attachment" "dms_role_policy_attachment" {
   role       = aws_iam_role.dms_role.name
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
-
 
 resource "aws_iam_role" "firehose_role" {
   name = "${var.name_prefix}-firehose-role"
@@ -41,7 +37,6 @@ resource "aws_iam_role" "firehose_role" {
     }]
   })
 }
-
 
 resource "aws_iam_role_policy_attachment" "firehose_role_policy_attachment" {
   role       = aws_iam_role.firehose_role.name
