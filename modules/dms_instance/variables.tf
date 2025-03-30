@@ -32,5 +32,5 @@ variable "allocated_storage" {
 
 variable "instance_class" {
   type    = string
-  default = "dms.t2.micro"
+  default = "dms.t3.micro"
 }
