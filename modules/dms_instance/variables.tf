@@ -6,7 +6,7 @@ variable "name_prefix" {
 variable "engine_version" {
   type        = string
   description = "The engine version of the DMS instance"
-  default     = "3.5.2"
+  default     = "3.5.3"
 }
 
 variable "replication_subnet_group_id" {
