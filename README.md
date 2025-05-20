@@ -14,7 +14,7 @@ This project contains Terraform infrastructure code to build a real-time data pi
 - **Amazon S3**: Data storage
 
 ## 🏗️ Architecture
-![CDC Architecture](./image/CDC_Architecture.png)
+![CDC Architecture](./CDC_Architecture.png)
 
 ## 🔧 Version Requirements
 
