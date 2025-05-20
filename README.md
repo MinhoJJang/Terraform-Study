@@ -22,7 +22,7 @@ This project contains Terraform infrastructure code to build a real-time data pi
 - **AWS CLI**: `v2.17.51`
 - **Required Permissions**: AWS account and IAM user access
 
-## 📚 Dependency References
+## 📚 References
 - [Terraform Official Website](https://developer.hashicorp.com/terraform/install)
 - [AWS CLI Official Documentation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
